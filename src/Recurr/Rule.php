@@ -1312,4 +1312,28 @@ class Rule
     {
         return !$this->getCount() && !$this->getUntil() && !$this->getEndDate();
     }
+
+    /**
+     * @return bool
+     */
+    public function occursAt($date)
+    {
+        if (null !== $this->getStartDate() && $this->getStartDate() > $date) {
+            return false;
+        }
+
+        if (null !== $this->getUntil() && $this->getUntil() < $date) {
+            return false;
+        }
+
+        if (in_array($date, $this->getRDates())) {
+            return true;
+        }
+
+        if ($this->getFreq() === Frequency::DAILY) {
+            
+        }
+
+        return true;
+    }
 }
